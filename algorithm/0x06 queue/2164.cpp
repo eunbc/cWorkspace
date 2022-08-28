@@ -12,6 +12,7 @@ int main(void) {
         q.push(i);
     }
 
+    //until 1
     while(q.size()!=1) {
         q.pop();
         q.push(q.front());
