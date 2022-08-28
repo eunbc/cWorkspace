@@ -15,8 +15,7 @@ int main(void) {
         else s.push(n);
     }
     int sum = 0;
-    int size = s.size();
-    while(size--) {
+    while(!s.empty()) {
         sum += s.top();
         s.pop();
     }
