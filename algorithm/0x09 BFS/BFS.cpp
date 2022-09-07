@@ -24,6 +24,6 @@ int main(void) {
             vis[nx][ny] = 1;
             Q.push({nx,ny});
         }
-    }
+    } 
 
 }
