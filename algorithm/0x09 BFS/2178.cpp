@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define X first
-#define Y second
 
 string board[101];
 int dist[101][101];
@@ -27,13 +25,13 @@ int main(void) {
             int nx = cur.first + dx[dir];
             int ny = cur.second + dy[dir];
             if(nx < 1 || nx > n || ny < 1 || ny > m) continue;
-            if(board[nx][ny] != '1' || dist[nx][ny] >= 0) continue;
-            dist[nx][ny] = dist[cur.X, cur.Y]+1;
+            if(dist[nx][ny] >= 0 || board[nx][ny] != '1') continue;
+            dist[nx][ny] = dist[cur.first, cur.second]+1;
             Q.push({nx,ny});
         }
     }
 
-    cout << dist[n,m];
+    cout << dist[n,m]+1;
 
     
 }
