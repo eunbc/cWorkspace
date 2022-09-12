@@ -12,26 +12,25 @@ int main(void) {
     cin.tie(0);
 
     cin >> n >> m;
-    for(int i=1; i<=n; i++) cin >> board[i];
-    for(int i = 0; i < n; i++) fill(dist[i]+1,dist[i]+m+1,-1);
+    for(int i=0; i<n; i++) cin >> board[i];
 
     queue<pair<int,int>> Q;
-    dist[1][1] = 1;
-    Q.push({1,1});
+    dist[0][0] = 1;
+    Q.push({0,0});
 
     while(!Q.empty()) {
         pair<int,int> cur = Q.front(); Q.pop();
         for(int dir=0; dir<4; dir++) {
             int nx = cur.first + dx[dir];
             int ny = cur.second + dy[dir];
-            if(nx < 1 || nx > n || ny < 1 || ny > m) continue;
-            if(dist[nx][ny] >= 0 || board[nx][ny] != '1') continue;
-            dist[nx][ny] = dist[cur.first, cur.second]+1;
+            if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+            if(dist[nx][ny] > 0 || board[nx][ny] != '1') continue;
+            dist[nx][ny] = dist[cur.first][cur.second]+1;
             Q.push({nx,ny});
         }
     }
 
-    cout << dist[n,m]+1;
+    cout << dist[n-1][m-1];
 
     
 }

@@ -41,7 +41,7 @@ int main(void) {
     cout << sum << ' ';
 
     for(int i=0; i<n; i++) {
-        for(int j=0; j<n; j++) fill(vis[i], vis[i]+n,0);
+        for(int j=0; j<n; j++) vis[i][j] = 0;
     }
 
     int sum2 = 0;
