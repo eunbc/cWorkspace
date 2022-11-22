@@ -31,3 +31,12 @@ local.properties
 *.so
 *.com
 *.class
+
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
