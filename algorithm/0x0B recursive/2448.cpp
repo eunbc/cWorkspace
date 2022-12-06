@@ -1,10 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-char arr[6144][6144];
+const int MAX = 1024*3;
+char arr[MAX][2*MAX-1];
 
 void func(int n, int x,int y) {
-    
+    if(n==3) {
+        
+    }
+    int nx = n/2;
+    // func(nx, , 0);
+    func(nx, 0, 0);
+    func(nx, 0, 0);
 }
 
 int main(void) {
@@ -12,25 +19,12 @@ int main(void) {
     cin.tie(0);
     int n ;
     cin >> n;
-    
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<n-i-1; j++) {
-            arr[i][j] = ' ';
-        }
-        for(int j=0; j<i+1; j++) {
-            arr[i][j] = '*';
-        }
-        for(int j=0; j<i; j++) {
-            arr[i][j] = '*';
-        }
-        cout << '\n';
-    }
-    func(n,0,0);
+    func(n,0,n-1);
 
     for(int i=0; i<n; i++) {
         for(int j=0; j<2*n-1; j++) {
             cout << arr[i][j];
         }
         cout << '\n';
-    }    
+    }
 }
