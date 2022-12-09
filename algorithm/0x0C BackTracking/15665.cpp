@@ -3,7 +3,6 @@ using namespace std;
 
 int n,m;
 int arr[10],print[10];
-bool isused[10];
 
 void func(int k) {
     if(k==m) {
@@ -15,12 +14,10 @@ void func(int k) {
     }
     int tmp = 0;
     for(int i=0; i<n; i++) {
-        if(!isused[i] && tmp!=arr[i] ) {
+        if(tmp!=arr[i]) {
             print[k] = arr[i];
-            isused[i] = true;
             tmp = arr[i];
             func(k+1);
-            isused[i] = false;
         }
     }
 }

@@ -3,9 +3,8 @@ using namespace std;
 
 int n,m;
 int arr[10],print[10];
-bool isused[10];
 
-void func(int k) {
+void func(int k,int v) {
     if(k==m) {
         for(int i=0; i<m; i++) {
             cout << print[i] << ' ';
@@ -14,15 +13,16 @@ void func(int k) {
         return;
     }
     int tmp = 0;
-    for(int i=0; i<n; i++) {
-        if(!isused[i] && tmp!=arr[i] ) {
+    int st = 0;
+    if(k!=0) st = v;
+    for(int i=st; i<n; i++) {
+        if(tmp!=arr[i]) {
             print[k] = arr[i];
-            isused[i] = true;
             tmp = arr[i];
-            func(k+1);
-            isused[i] = false;
+            func(k+1, i);
         }
     }
+
 }
 
 int main(void){ 
@@ -33,5 +33,5 @@ int main(void){
         cin >> arr[i];
     }
     sort(arr, arr+n);
-    func(0);
+    func(0,0);
 }
