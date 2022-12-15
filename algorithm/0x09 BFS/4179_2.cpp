@@ -48,19 +48,19 @@ int main(void){
     } 
     
 
+    bool possible = false;
+    int minimum = 1000;
     for(int i=0; i<r; i++) {
         for(int j=0; j<c; j++) {
-            cout << fire[i][j];
+            if(i==0 || i==r-1 || j==0 || j==c-1) {
+                if(fire[i][j] > jihoon[i][j] && board[i][j]!='#') {
+                    possible = true;
+                    if(minimum > jihoon[i][j]) minimum = jihoon[i][j];
+                }
+            }
         }
-        cout << '\n';
-    }
+    }    
 
-    cout << "===========================\n";
-
-    for(int i=0; i<r; i++) {
-        for(int j=0; j<c; j++) {
-            cout << jihoon[i][j];
-        }
-        cout << '\n';
-    }
+    if(!possible) cout << "IMPOSSIBLE";
+    else cout << minimum+1;
 }
