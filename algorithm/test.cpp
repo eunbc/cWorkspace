@@ -1,20 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int arr[1][8];
+typedef tuple<int,int,int> Mytuple;
 
 int main()
 {
-    string str;
-    cin >> str;
-    for (int j = 0; j < 8 ; j++) {
-    //   arr[0][j] = str[j] - '0';
-      arr[0][j] = str[j];
-    }
+    Mytuple c0(1,2,3);
+    int v4 = 4;
+    int v5 = 5;
+    int v6 = 6;
 
-    for (int i=0; i<8; i++) {
-        cout << arr[0][i];
-    }
+    c0 = make_tuple(v4,v5,v6);
 
+    cout << get<0>(c0) << ' ';
+    cout << get<1>(c0) << ' ';
+    cout << get<2>(c0) << '\n';
+
+
+    cout << "==================\n";
+
+    
+    c0 = tie(v4,v5,v6);
+
+    cout << get<0>(c0) << ' ';
+    cout << get<1>(c0) << ' ';
+    cout << get<2>(c0) << ' ';
+
+    return 0;
 }
 
