@@ -1,83 +1,82 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int board1[5][5][5];
-int board2[5][5][5];
+int board[4][5][5][5];
+int maze[5][5][5];
+
 int dx[6] = {1,0,0,-1,0,0};
 int dy[6] = {0,1,0,0,-1,0};
 int dz[6] = {0,0,1,0,0,-1};
 
-void init() {
-    for(int k=0; k<5; k++) {
-        for(int i=0; i<5; i++) {
-            for(int j=0; j<5; j++) {
-                board2[k][i][j] == board1[k][i][j];
-            }
+int solve() {
+    int dist[5][5][5] = {0, };
+    if(maze[0][0][0]==0 || maze[4][4][4]==0) return 9999;
+    queue<tuple<int,int,int>> Q;
+    Q.push({0,0,0});
+    dist[0][0][0]=1;
+    while(!Q.empty()) {
+        auto cur = Q.front(); Q.pop();
+        for(int dir=0; dir<6; dir++) {
+            int x,y,z;
+            tie(x,y,z) = cur;
+            int nx = x + dx[dir];
+            int ny = y + dy[dir];
+            int nz = z + dz[dir];
+            if(nx < 0 || nx >= 5 || ny < 0 || ny >= 5 || nz < 0 || nz >=5) continue;
+            if(maze[nx][ny][nz]==0 || dist[nx][ny][nz]>0) continue;
+            if(nx==4 && ny==4 && nz==4) return dist[x][y][z];
+            dist[nx][ny][nz] = dist[x][y][z]+1;
+            Q.push({nx,ny,nz});
         }
-    }    
-}
-
-void rotate(int k, int dir) {
-    int tmp[1][5][5];
-    for(int i=0; i<5; i++) {
-        for(int j=0; j<5; j++) {
-            tmp[1][i][j] = board2[k][i][j];
-        }
-    }
-
-    if(dir==0) {
-        for(int i=0; i<5; i++) {
-            for(int j=0; j<5; j++) {
-                board2[k][i][j] = tmp[1][i][j];
-            }
-        }
-    } else if (dir==1){
-        for(int i=0; i<5; i++) {
-            for(int j=0; j<5; j++) {
-                board2[k][i][j] = tmp[1][i][j];
-            }
-        }
-    } else if (dir==2){
-        for(int i=0; i<5; i++) {
-            for(int j=0; j<5; j++) {
-                board2[k][i][j] = tmp[1][i][j];
-            }
-        }
-    } else if (dir==3){
-        for(int i=0; i<5; i++) {
-            for(int j=0; j<5; j++) {
-                board2[k][i][j] = tmp[1][i][j];
-            }
-        }
-    }    
+    } 
+    return 9999;
 }
 
 int main(void){ 
     ios::sync_with_stdio(0);
     cin.tie(0);
-    for(int k=0; k<5; k++) {
-        for(int i=0; i<5; i++) {
-            for(int j=0; j<5; j++) {
-                cin >> board1[k][i][j];
+    for(int i=0; i<5; i++) {
+        for(int j=0; j<5; j++) {
+            for(int k=0; k<5; k++) {
+                cin >> board[0][i][j][k];
+            }
+        }
+
+        for(int j=0; j<5; j++) {
+            for(int k=0; k<5; k++) {
+                board[1][i][j][k] = board[0][i][4-k][j];
+            }
+        }
+        for(int j=0; j<5; j++) {
+            for(int k=0; k<5; k++) {
+                board[2][i][j][k] = board[1][i][4-k][j];
+            }
+        }
+        for(int j=0; j<5; j++) {
+            for(int k=0; k<5; k++) {
+                board[3][i][j][k] = board[2][i][4-k][j];
             }
         }
     }
 
-    int res = 0x7f7f7f7f;
-    for(int tmp=0; tmp<(1<<2*5); tmp++) {
-        init();        
-        int brute = tmp;
-        //각각의 경우의 수에 맞게 회전 시킨 다음
-        for(int k=0; k<5; k++) {
-            int dir = brute % 4;
-            brute /= 4;
-            rotate(k, dir);
+    int order[5] = {0,1,2,3,4};
+    int ans = 9999;
+    do{
+        for(int tmp=0; tmp < 1024; tmp++) {
+            int brute = tmp;
+            for(int i=0; i<5; i++) {
+                int dir = brute % 4;
+                brute /= 4;
+                for(int j=0; j<5; j++) {
+                    for(int k=0; k<5; k++) {
+                        maze[i][j][k] = board[dir][order[i]][j][k];
+                    }
+                }
+            }
+            ans = min(ans, solve());
         }
-        int dist = 0x7f7f7f7f;
-        //입구에서 출구로 가는 최단거리, 각각의 꼭지점
-        for(int i=0; i<8; i++) {
-            
-        }
+     }while(next_permutation(order, order+5));
 
-    }
+    if(ans==9999) cout << -1;
+    else cout << ans;
 }
