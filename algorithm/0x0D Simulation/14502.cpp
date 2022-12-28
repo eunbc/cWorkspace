@@ -8,7 +8,7 @@ vector<pair<int,int>> virus;
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,1,0,-1};
 
-int bfs() {
+int solve() {
     int tmp[10][10];
     for(int i=0; i<n; i++) {
         for(int j=0; j<m; j++) {
@@ -16,49 +16,29 @@ int bfs() {
         }
     }
 
-    cout << "==================tmp\n";
-
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<m; j++) {
-            cout << tmp[i][j];
-        }
-        cout << '\n';
-    }
-
-    cout << "==================\n";
-
     queue<pair<int,int>> Q;
     for(int i=0; i<virus.size(); i++) {
-        Q.push({virus[i].first,virus[i].second});
+        Q.push({virus[i].first, virus[i].second});
         while(!Q.empty()) {
             auto cur = Q.front(); Q.pop();
             for(int dir=0; dir<4; dir++) {
                 int nx = cur.first + dx[dir];
-                int ny = cur.second + dy[dir];        
+                int ny = cur.second + dy[dir];
                 if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
                 if(tmp[nx][ny]!=0) continue;
                 tmp[nx][ny] = 2;
                 Q.push({nx,ny});
             }
-        }
+        } 
     }
 
+    int cnt = 0;
     for(int i=0; i<n; i++) {
         for(int j=0; j<m; j++) {
-            cout << tmp[i][j];
-        }
-        cout << '\n';
-    }
-
-
-    int res = 0;
-    for(int i=0; i<n; i++) {
-        for(int j=0; j<m; j++) {
-            if(tmp[i][j]==0) res++;
+            if(tmp[i][j]==0) cnt++;
         }
     }
-
-    return res;
+    return cnt;
 }
 
 int main(void){ 
@@ -75,22 +55,18 @@ int main(void){
 
     int ans = 0;
     for(int i=0; i<room.size(); i++) {
-        cout << "room["<< i<< "] = " <<room[i].first << ' ' << room[i].second << '\n';
         board[room[i].first][room[i].second] = 1;
         for(int j=i+1; j<room.size(); j++) {
             board[room[j].first][room[j].second] = 1;
-            for(int k=j+1; i<room.size(); k++) {
+            for(int k=j+1; k<room.size(); k++) {
                 board[room[k].first][room[k].second] = 1;
-                
-                ans = max(ans, bfs());
-
+                ans = max(ans, solve());
                 board[room[k].first][room[k].second] = 0;
             }
             board[room[j].first][room[j].second] = 0;
         }
         board[room[i].first][room[i].second] = 0;
     }
-    
+
     cout << ans;
-    
 }
