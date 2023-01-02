@@ -2,6 +2,7 @@
 using namespace std;
 
 string arr[4];
+int k;
 
 void go(int n, int d) {
     int dirs[4] = {};
@@ -12,15 +13,11 @@ void go(int n, int d) {
         dirs[n-1] = -dirs[n];
         idx--;            
     }
-    //오른쪽
     idx = n;
+    //오른쪽
     while(idx < 3 && arr[idx][2] != arr[idx+1][6]) {
         dirs[n+1] = -dirs[n];
         idx++;
-    }
-
-    for(int i=0; i<n; i++) {
-        cout << "dir[" << i << "]" << dirs[i];
     }
 
 
@@ -34,13 +31,12 @@ void go(int n, int d) {
 }
 
 int main(void){ 
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);
     for(int i=0; i<4; i++) {
         cin >> arr[i]; 
     }
-
-    int k;
+    
     cin >> k;
     while(k--) {
         int num,dir;
@@ -53,12 +49,6 @@ int main(void){
     for(int i=0; i<4; i++) {
         if(arr[i][0]=='1') ans += (1<<i);
     };
-
-    cout << "================";
-
-    for(int i=0; i<4; i++) {
-        cout << arr[i] << '\n';
-    }
 
     cout << ans;
 }
