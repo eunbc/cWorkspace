@@ -1,64 +1,52 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string arr[4];
+string board[4];
 
-void go(int n, int d) {
-    int dirs[4] = {};
-    dirs[n] = d;
-    int idx = n;
-    //왼쪽
-    while(idx > 0 && arr[idx][6] != arr[idx-1][2]) {
-        dirs[n-1] = -dirs[n];
-        idx--;            
+void go(int num, int dir) {
+    int dirs[4] = {}; //매번 초기화
+    dirs[num] = dir;
+    int idx = num;
+    //왼쪽 방향
+    while(idx > 0 && board[idx][6] != board[idx-1][2]) {
+        dirs[idx-1] = -dirs[idx];
+        idx--;
     }
-    //오른쪽
-    idx = n;
-    while(idx < 3 && arr[idx][2] != arr[idx+1][6]) {
-        dirs[n+1] = -dirs[n];
+    idx = num;
+    //오른쪽 방향
+    while(idx < 3 && board[idx][2]!= board[idx+1][6]) {
+        dirs[idx+1] = -dirs[idx];
         idx++;
     }
 
-    for(int i=0; i<n; i++) {
-        cout << "dir[" << i << "]" << dirs[i];
-    }
-
-
     for(int i=0; i<4; i++) {
-        if(dirs[i]==-1) {
-            rotate(arr[i].begin(),arr[i].begin()+1,arr[i].end());
-        } else if(dirs[i]==1) {
-            rotate(arr[i].begin(),arr[i].begin()+7,arr[i].end());            
+        if(dirs[i]==-1) { //반시계방향(왼쪽으로 회전)
+            rotate(board[i].begin(),board[i].begin()+1, board[i].end());    
+        }else if(dirs[i]==1) { //시계방향(오른쪽으로 회전)
+            rotate(board[i].rbegin(),board[i].rbegin()+1, board[i].rend());    
         }
     }
+    
 }
 
 int main(void){ 
     ios::sync_with_stdio(0);
     cin.tie(0);
-    for(int i=0; i<4; i++) {
-        cin >> arr[i]; 
-    }
-
     int k;
+    
+    for(int i=0; i<4; i++) {
+        cin >> board[i];
+    }
     cin >> k;
     while(k--) {
-        int num,dir;
+        int num, dir;
         cin >> num >> dir;
-        go(num-1,dir);
+        go(num-1, dir);
     }
-
+    
     int ans = 0;
-
     for(int i=0; i<4; i++) {
-        if(arr[i][0]=='1') ans += (1<<i);
-    };
-
-    cout << "================";
-
-    for(int i=0; i<4; i++) {
-        cout << arr[i] << '\n';
+        if(board[i][0]=='1') ans += (1<<i); //string 이므로 문자로 확인해야 함
     }
-
     cout << ans;
 }
