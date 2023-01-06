@@ -2,10 +2,9 @@
 using namespace std;
 
 int N;
-bool board[101][101];
+int board[101][101];
 int dx[4] = {1,0,-1,0};
 int dy[4] = {0,-1,0,1};
-
 int main(void){ 
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -13,23 +12,20 @@ int main(void){
     while(N--) {
         int x,y,d,g;
         cin >> x >> y >> d >> g;
-        vector<int> v = {};
-        v.push_back(d%4);
         board[y][x] = 1;
-
+        vector<int> v = {};
+        v.push_back(d);
         while(g--) {
             for(int i=v.size()-1; i>=0; i--) {
                 v.push_back((v[i]+1)%4);
             }
         }
-        
         for(int i=0; i<v.size(); i++) {
             int dir = v[i];
             x += dx[dir];
             y += dy[dir];
-            board[y][x] = 1;
+            board[y][x] = 1; 
         }
-
     }
 
     int ans = 0;

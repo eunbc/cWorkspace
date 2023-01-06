@@ -4,10 +4,12 @@ using namespace std;
 
 int main()
 {
-    for(int i=10; i>0; --i) {
-        cout << i << ' ';
-        cout << "?";
-    }
+    cout << "Hello world";
+    int data;
+    int divider = 0;
+    data = 1;
+    data /= divider;
+    cout << data;
     return 0;
 }
 
