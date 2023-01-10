@@ -20,6 +20,7 @@
         "unordered_map": "cpp",
         "unordered_set": "cpp",
         "iosfwd": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "__config": "cpp"
     }
 }
