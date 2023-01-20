@@ -21,6 +21,7 @@
         "unordered_set": "cpp",
         "iosfwd": "cpp",
         "tuple": "cpp",
-        "__config": "cpp"
+        "__config": "cpp",
+        "istream": "cpp"
     }
 }
