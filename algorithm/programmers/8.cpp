@@ -3,6 +3,9 @@ using namespace std;
 
 int F[100005];
 
+//피보나치 수 
+//https://school.programmers.co.kr/learn/courses/30/lessons/12945
+
 int solution(int n) {
     int answer = 0;
     F[0] = 0;
