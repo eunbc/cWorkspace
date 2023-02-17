@@ -6,7 +6,16 @@ using namespace std;
 
 int solution(vector<vector<string>> clothes) {
     int answer = 0;
-
+    unordered_map<string,int> map; 
+    for(int i=0; i<clothes.size(); i++) {
+        if(map.find(clothes[i][1])!=map.end()) map[clothes[i][1]]++;
+        else map[clothes[i][1]] = 1;
+    }
+    int tmp = 1;
+    for(auto e : map) {
+        tmp *= (e.second + 1);
+    }
+    answer = (tmp-1);
     return answer;
 }
 
