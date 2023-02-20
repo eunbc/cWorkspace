@@ -6,8 +6,10 @@ using namespace std;
 
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
     vector<int> answer;
+    queue<int> q;
     for(int i=0; i<10; i++) {
         
+
     }
     return answer;
 }
