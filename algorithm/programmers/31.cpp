@@ -6,10 +6,19 @@ using namespace std;
 
 bool solution(vector<string> phone_book) {
     bool answer = true;
+    unordered_map<string,int> map;
     for(int i=0; i<phone_book.size(); i++) {
-        for(int j=0; j<phone_book.size(); j++) {
-            
+        map[phone_book[i]]++;
+    }
+
+    for(int i=0; i<phone_book.size(); i++) {
+        string phone_number = "";
+        for(int j=0; j<phone_book[i].size(); j++) {
+            phone_number += phone_book[i][j];
+            if(map[phone_number] && phone_number != phone_book[i])
+                answer = false;
         }
+        cout << '\n';
     }
     return answer;
 }
@@ -17,6 +26,6 @@ bool solution(vector<string> phone_book) {
 int main(void){ 
     ios::sync_with_stdio(0);
     cin.tie(0);
-    vector<string> phone_book = {"119", "97674223", "1195524421"};
+    vector<string> phone_book = {"12","123","1235","567","88"};
     cout << solution(phone_book);
 }
