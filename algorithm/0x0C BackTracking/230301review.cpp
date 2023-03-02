@@ -3,7 +3,6 @@ using namespace std;
 
 int n,m;
 int arr[10];
-bool isused[10];
 
 void func(int k) {
     if(k==m) {
@@ -14,8 +13,10 @@ void func(int k) {
         return;
     }
 
-    
-
+    for(int i=1; i<=n; i++) {
+        arr[k] = i;
+        func(k+1);
+    }
 }
 
 int main(void){ 
